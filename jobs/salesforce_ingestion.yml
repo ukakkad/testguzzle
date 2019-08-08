@@ -1,0 +1,14 @@
+version: 1
+
+job:
+  type: ingestion
+
+source:
+  endpoint: lo_salesforce
+  properties:
+    query: "SELECT id, firstname, lastname, company, CreatedDate FROM Lead"
+
+target:
+  endpoint: lo_hive
+  properties:
+    table: sfdata

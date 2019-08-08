@@ -1,0 +1,35 @@
+version: 1
+
+job:
+    type: ingestion
+
+source:
+    endpoint: lo_lfs
+    properties:
+      source_file_pattern: json/users.*.json
+      format: json
+      charset: UTF-8
+      control_file:
+          extension: ctl
+    column_mapping:
+      name.first_name: first_name
+      name.last_name: last_name
+
+schema:
+    strict_schema_check: true
+    schema_derivation_strategy: target
+    columns:
+      - name: id
+        primary_key:
+          value: true
+        data_type:
+          value: INT
+        nullable:
+          value: false
+      - name: age
+        nullable:
+          value: false
+target:
+  endpoint: "lo_jdbc"
+  properties:
+    table: "users"

@@ -1,0 +1,17 @@
+version: 1
+context_stage_mappings:
+  - context:
+      system: USERS
+    rerun_batch: false
+    period: 1
+    stage_pairs:
+      - STG,FND
+    stages:
+      - name: STG
+        rerun_batch: true
+        partial_load: true
+        job_groups:
+          - USERS_INGESTION
+      - name: FND
+        job_groups:
+          - USERS_PROCESSING

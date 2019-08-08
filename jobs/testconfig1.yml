@@ -1,0 +1,9 @@
+version: 1
+job:
+  type: "ingestion"
+source: {}
+schema:
+  strict_schema_check: true
+  schema_derivation_strategy: "source"
+  discard: true
+target: {}

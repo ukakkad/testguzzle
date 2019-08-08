@@ -1,0 +1,29 @@
+version: 1
+job:
+  type: ingestion
+source:
+  endpoint: lo_jdbc
+  properties:
+    num_partitions: 5
+    query: select * from users
+    partition_column: id
+    filter: id < 500
+    table: users
+schema:
+  strict_schema_check: true
+  columns:
+    - name: id
+      primary_key:
+        value: true
+      nullable:
+        value: false
+    - name: age
+      nullable:
+        value: false
+  schema_derivation_strategy: source
+  discard: true
+target:
+  endpoint: lo_jdbc
+  properties:
+    table: users_tgt
+

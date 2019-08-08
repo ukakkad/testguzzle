@@ -1,0 +1,39 @@
+version: 1
+
+job:
+    type: ingestion
+
+source:
+    endpoint: lo_lfs
+    properties:
+        source_file_pattern: xml/users.*.xml
+        format: xml
+        charset: UTF-8
+        format_properties:
+          root_tag: users
+          row_tag: user
+        control_file:
+          extension: ctl
+    column_mapping:
+      name.first_name: first_name
+      name.last_name: last_name
+
+schema:
+    strict_schema_check: true
+    schema_derivation_strategy: schema 
+    columns:
+        - name: id
+          primary_key:
+            value: true
+          data_type:
+            value: INT
+          nullable:
+            value: false
+        - name: age
+          nullable:
+            value: false
+
+target:
+  endpoint: "lo_jdbc"
+  properties:
+    table: "users"

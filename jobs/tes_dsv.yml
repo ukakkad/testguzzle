@@ -1,0 +1,36 @@
+version: 1
+job:
+  type: "ingestion"
+source:
+  endpoint: "lo_lfs"
+  properties:
+    format: "delimited"
+    format_properties:
+      column_delimiter: ","
+      contains_header: true
+      quote_delimiter: "\""
+    source_file_pattern: "csv/users.*.csv"
+    charset: "UTF-8"
+    control_file:
+      extension: "ctl"
+schema:
+  strict_schema_check: true
+  schema_derivation_strategy: "schema"
+  columns:
+  - name: "id"
+    primary_key:
+      value: true
+    data_type:
+      value: "INT"
+    nullable:
+      value: false
+  - name: "age"
+    nullable:
+      value: false
+  discard: true
+target:
+  endpoint: "lo_lfs"
+  properties:
+    format: "json"
+    charset: "UTF-8"
+    path: "."

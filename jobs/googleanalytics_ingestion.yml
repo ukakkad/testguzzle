@@ -1,0 +1,19 @@
+version: 1
+
+job:
+  type: ingestion
+
+source:
+  endpoint: lo_googleanalytics
+  properties:
+    view_id: "demo_view_id"
+    metrics: ["ga:sessions"]
+    dimensions: ["ga:source", "ga:medium", "ga:browser", "ga:date", "ga:operatingSystem"]
+    date_range:
+      start: 365DaysAgo
+      end: today
+
+target:
+  endpoint: lo_hive
+  properties:
+    table: gadata
