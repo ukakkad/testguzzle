@@ -33,4 +33,6 @@ target:
   properties:
     format: "json"
     charset: "UTF-8"
-    path: "."
+    path: "abc"
+    format_properties:
+      merge_file: true
