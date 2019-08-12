@@ -9,7 +9,7 @@ source:
       column_delimiter: ","
       contains_header: true
       quote_delimiter: "\""
-    source_file_pattern: "csv/users.*.csv"
+    source_file_pattern: "csv/users*.csv"
     charset: "UTF-8"
     control_file:
       extension: "ctl"
