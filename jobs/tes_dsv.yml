@@ -34,3 +34,5 @@ target:
     format: "json"
     charset: "UTF-8"
     path: "."
+    format_properties:
+      merge_file: true
