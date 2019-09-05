@@ -1,6 +1,12 @@
 version: 1
 job:
   type: "ingestion"
+  tags:
+  - "csv_to_hive"
+  - "csv"
+  - "users"
+  - "demo"
+  description: "load users data from csv file and store into hive users table"
 source:
   endpoint: "lo_lfs"
   properties:
@@ -9,13 +15,12 @@ source:
       column_delimiter: ","
       contains_header: true
       quote_delimiter: "\""
-    source_file_pattern: "csv/users.*.csv"
+      infer_schema: true
+    source_file_pattern: "csv/users*.csv"
     charset: "UTF-8"
-    control_file:
-      extension: "ctl"
 schema:
   strict_schema_check: true
-  schema_derivation_strategy: "schema"
+  schema_derivation_strategy: "source"
   columns:
   - name: "id"
     primary_key:
@@ -29,6 +34,8 @@ schema:
       value: false
   discard: true
 target:
-  endpoint: "lo_jdbc"
+  endpoint: "lo_hive"
   properties:
+    auto_create_table: true
     table: "users"
+  operation: "append"

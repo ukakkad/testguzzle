@@ -1,0 +1,32 @@
+version: 1
+job:
+  tags:
+  - "api"
+  - "intrinio"
+  - "companies"
+  - "demo"
+  description: "This jobs loads all companies information from intrinio api and stored into hive database companies table"
+  type: "ingestion"
+source:
+  endpoint: "intrinio_api"
+  properties:
+    format: "json"
+    format_properties:
+      root_tag: "companies"
+      infer_schema: true
+    uri: "companies"
+    api_response_logical_endpoint: "lo_lfs"
+    http_method: "get"
+    charset: "UTF-8"
+    parameters:
+      api_key: "OjdkZDYyODdmNzkzOTRhODdiMzU0ZjNiOGE1ODJkNTFi"
+schema:
+  strict_schema_check: true
+  schema_derivation_strategy: "source"
+  discard: true
+target:
+  endpoint: "lo_hive"
+  properties:
+    auto_create_table: true
+    table: "companies"
+  operation: "overwrite"

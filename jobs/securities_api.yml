@@ -1,0 +1,32 @@
+version: 1
+job:
+  tags:
+  - "api"
+  - "intrinio"
+  - "securities"
+  - "demo"
+  description: "This jobs load all securities information from intrinio API and stored into hive database securities table"
+  type: "ingestion"
+source:
+  endpoint: "intrinio_api"
+  properties:
+    format: "json"
+    format_properties:
+      root_tag: "securities"
+      infer_schema: true
+    uri: "securities"
+    api_response_logical_endpoint: "lo_lfs"
+    http_method: "get"
+    charset: "UTF-8"
+    parameters:
+      api_key: "OjdkZDYyODdmNzkzOTRhODdiMzU0ZjNiOGE1ODJkNTFi"
+schema:
+  strict_schema_check: true
+  schema_derivation_strategy: "source"
+  discard: true
+target:
+  endpoint: "lo_hive"
+  properties:
+    auto_create_table: true
+    table: "securities"
+  operation: "overwrite"
