@@ -28,5 +28,5 @@ target:
   endpoint: "lo_hive"
   properties:
     auto_create_table: true
-    table: "companies"
+    table: "companies_tgt"
   operation: "overwrite"
